@@ -105,6 +105,9 @@ class Tablehead extends React.Component{
                     className="w-100 text-decoration-none text-white">Total<i className={totalClass} style={{marginLeft:"5px"}}></i></a></th>
                 <th style={{width:"73px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'rank')} style={{padding:"12px 10px"}} href="#" 
                     className="w-100 text-decoration-none text-white">Rank<i className={rankClass} style={{marginLeft:"5px"}}></i></a></th>
+				<th>Photo</th>
+				<th>Gender</th>
+				<th>Section</th>
 				<th>Action</th>
 			</tr>
 		</thead>

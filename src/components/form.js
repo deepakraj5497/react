@@ -135,7 +135,8 @@ class Form extends React.Component{
 			button = <button className="btn btn-info" onClick={this.handleUpdate.bind(this)}>update Member</button>
 		}
 		return(
-			<div>
+			<div className="w-25 mx-auto">
+				<h4 className="mt-3 text-info">STUDENT TABLE LIST UPDATER</h4>
 				<p className="text-success font-weight-bold">{this.props.post.success}</p>
 				<div className="form-group">
 					<label className="font-weight-bold">Name:</label><br></br>
@@ -166,6 +167,25 @@ class Form extends React.Component{
 					<label className="font-weight-bold">Social:</label><br></br>
 					<input type="text" name="social" value={this.props.post.social} onChange={this.handleChange.bind(this)}
 						className={this.props.post.socialCheck}></input><br></br>
+				</div>
+				<div className="form-group">
+					<input type="file" className ="form-control-file border" name="file" onChange={this.handleImage}></input><br></br>
+				</div>
+				<div className="form-check-inline">
+  					<label className="form-check-label"></label>
+    				<input type="radio" className="form-check-input" name="male"/>Male
+				</div>
+				<div className="form-check-inline mb-4">
+  					<label className="form-check-label"></label>
+    				<input type="radio" className="form-check-input" name="female"/>Female
+				</div>
+				<div className="form-group">
+				<label className="font-weight-bold">Department:</label><br></br>
+					<select>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+					</select>
 				</div>
 				{button}
 			</div>

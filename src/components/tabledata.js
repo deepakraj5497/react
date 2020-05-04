@@ -55,7 +55,7 @@ class Tabledata extends React.Component{
 			data = this.props.post.post;
 		}
 		return this.props.post.post.map((n,i) => {
-		const {name,english,tamil,maths,science,social} = n;
+		const {name,english,tamil,maths,science,social,img,gender,section} = n;
 		let total = english+tamil+maths+science+social;
 		return (
 			<tr key={i} className="allRows">
@@ -67,6 +67,9 @@ class Tabledata extends React.Component{
 				<td>{social}</td>
 				<td className="total">{total}</td>
 				<Rank total={total} post={data}/>
+				<td><img src={img} width="75px" height ="50px"/></td>
+				<td>{gender}</td>
+				<td>{section}</td>
 				<td>
 					<button className="btn btn-info mr-3 py-0" onClick ={this.getdata.bind(this,i)}>edit</button>
 					<button className="btn btn-danger py-0" onClick={this.delete.bind(this,i)}>del</button>

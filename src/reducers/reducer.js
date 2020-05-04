@@ -1,11 +1,12 @@
+import Photo from "../assets/pic.jpg";
 
 const initialState = {post : [
-    {name:"Deepak",english:98,tamil:95,maths:99,science:100,social:100,id:1},{name:"John",english:90,tamil:95,maths:78,science:93,social:100,id:2},
-    {name:"Raj",english:90,tamil:65,maths:65,science:90,social:80,id:3},{name:"Ragul",english:87,tamil:81,maths:85,science:90,social:86,id:4},
-    {name:"Prasath",english:87,tamil:88,maths:85,science:75,social:86,id:5},{name:"Vijay",english:72,tamil:85,maths:85,science:90,social:80,id:6},
-	{name:"Ajith",english:68,tamil:81,maths:80,science:60,social:75,id:7},{name:"Nandish",english:80,tamil:74,maths:66,science:95,social:55,id:8},
-	{name:"Kishore",english:87,tamil:51,maths:45,science:88,social:86,id:9},{name:"Ajay",english:87,tamil:51,maths:85,science:60,social:86,id:10},
-	{name:"Malik",english:87,tamil:51,maths:95,science:90,social:86,id:11}
+    {name:"Deepak",english:98,tamil:95,maths:99,science:100,social:100,id:1,img:Photo,gender:"male",section:"A"},{name:"Raji",english:90,tamil:95,maths:78,science:93,social:100,id:2,img:Photo,gender:"female",section:"B"},
+    {name:"Raj",english:90,tamil:65,maths:65,science:90,social:80,id:3,img:Photo,gender:"male",section:"A"},{name:"Geetha",english:87,tamil:81,maths:85,science:90,social:86,id:4,img:Photo,gender:"female",section:"C"},
+    {name:"Prasath",english:87,tamil:88,maths:85,science:75,social:86,id:5,img:Photo,gender:"male",section:"A"},{name:"Bharathi",english:72,tamil:85,maths:85,science:90,social:80,id:6,img:Photo,gender:"female",section:"C"},
+	{name:"Ajith",english:68,tamil:81,maths:80,science:60,social:75,id:7,img:Photo,gender:"male",section:"B"},{name:"Gayathri",english:80,tamil:74,maths:66,science:95,social:55,id:8,img:Photo,gender:"female",section:"B"},
+	{name:"Kishore",english:87,tamil:51,maths:45,science:88,social:86,id:9,img:Photo,gender:"male",section:"C"},{name:"Ajay",english:87,tamil:51,maths:85,science:60,social:86,id:10,img:Photo,gender:"male",section:"C"},
+	{name:"Sujatha",english:87,tamil:51,maths:95,science:90,social:86,id:11,img:Photo,gender:"female",section:"A"}
     ],add:true,name:"",english:"",tamil:"",maths:"",science:"",social:"",id:"",index:"",pageSize:5,duplicate: "",duplicate2:"",
     currentPage:0,active : 0,sortOn:false,direction:"asc",className1:false,className2:false,nameClass:false,englishClass:false,
     tamClass:false,mathClass:false,sciClass:false,socClass:false,totalClass:false,rankClass:false,key: "",sortOn:false,nameCheck:"form-control",
