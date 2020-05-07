@@ -1,134 +1,229 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-class Tablehead extends React.Component{
-    
-    sortBynum(key){
-        this.props.keyItem(key);
-        if(key !== this.props.post.key){
-			this.props.direction("asc");
-			this.props.allclass();
+class Tablehead extends React.Component {
+    sortBynum(k) {
+		const {
+            post: {
+                key
+               }, keyItem, directionValue, allclass, icon
+           } = this.props;
+        keyItem(key);
+        if (k !== key) {
+			directionValue('asc');
+			allclass();
 		}
-        switch (key) {
-			case "name":
-				this.props.icon("nameClass",true)
+        switch (k) {
+			case 'name':
+				icon('nameClass', true);
 				break;
-			case "english":
-				this.props.icon("englishClass",true)
+			case 'english':
+				icon('englishClass', true);
 				break;
-			case "tamil":
-				this.props.icon("tamClass",true)
+			case 'tamil':
+				icon('tamClass', true);
 				break;
-			case "maths":
-				this.props.icon("mathClass",true)
+			case 'maths':
+				icon('mathClass', true);
 				break;
-			case "science":
-				this.props.icon("sciClass",true)
+			case 'science':
+				icon('sciClass', true);
 				break;
-			case "social":
-				this.props.icon("socClass", true)
+			case 'social':
+				icon('socClass', true);
 				break;
-			case "total":
-				this.props.icon("totalClass",true)
+			case 'total':
+				icon('totalClass', true);
 				break;
-			case "rank":
-				this.props.icon("rankClass",true)
+			case 'rank':
+				icon('rankClass', true);
 				break;	
+			default: break;
 		}
-		this.sorting(key);
+		this.sorting(k);
     }
 
-    sorting(key){
-		let newArray;
-        newArray = [...this.props.post.duplicate];
-        console.log(this.props.post.direction)
-		if(this.props.post.direction === "asc"){
-			if(key === "name"){
-				newArray.sort((a,b) => a.name.localeCompare(b.name));
-			}else{
-				newArray.sort((a,b) => a[key] - b[key]);
+    sorting(key) {
+		const {
+            post: {
+                duplicate, direction, duplicate2
+               }, sort, directionValue, sortOn
+           } = this.props;
+		const newArray = [...duplicate];
+		if (direction === 'asc') {
+			if (key === 'name') {
+				newArray.sort((a, b) => a.name.localeCompare(b.name));
+			} else {
+				newArray.sort((a, b) => a[key] - b[key]);
             }
-            this.props.sort(newArray,true,false)
-            this.props.direction("dsc");
-            this.props.sortOn(true);
-		}else if(this.props.post.direction === "dsc"){
-			if(key === "name"){
-				newArray.sort((a,b) => b.name.localeCompare(a.name));
-			}else{
-				newArray.sort((a,b) => b[key] - a[key]);
+            sort(newArray, true, false);
+            directionValue('dsc');
+            sortOn(true);
+		} else if (direction === 'dsc') {
+			if (key === 'name') {
+				newArray.sort((a, b) => b.name.localeCompare(a.name));
+			} else {
+				newArray.sort((a, b) => b[key] - a[key]);
             }
-            this.props.sort(newArray,false,true)
-            this.props.direction("");
-		}else{
-            this.props.sort(this.props.post.duplicate2,false,false)
-            this.props.direction("asc");
-            this.props.sortOn(true);
+            sort(newArray, false, true);
+            directionValue('');
+		} else {
+            sort(duplicate2, false, false);
+            directionValue('asc');
+            sortOn(true);
 		}	
 	}
 
-    render(){
-        let nameClass,engClass,tamClass,mathClass,sciClass,socClass,totalClass,rankClass;
-        let icon = (this.props.post.className1 === true) ? "fa fa-caret-down": (this.props.post.className2 === true) ? "fa fa-caret-up" : "";
-        if(this.props.post.nameClass === true){
-            nameClass = icon; 
-		}else if(this.props.post.englishClass === true){
-			engClass = icon;
-		}else if(this.props.post.tamClass === true){
-			tamClass = icon;
-		}else if(this.props.post.mathClass === true){
-			mathClass = icon;
-		}else if(this.props.post.sciClass === true){
-			sciClass = icon;
-		}else if(this.props.post.socClass === true){
-			socClass = icon;
-		}else if(this.props.post.totalClass === true){
-			totalClass = icon;
-		}else if(this.props.post.rankClass === true){
-			rankClass = icon;
+    render() {
+		let nameCls; let engCls; let tamCls; 
+		let mathCls; let sciCls; let socCls; let totalCls; let rankCls;
+		const {
+            post: {
+				className1, className2, nameClass, englishClass, 
+				tamClass, mathClass, sciClass, socClass, totalClass, rankClass
+               } 
+		   } = this.props;
+		let icon;
+        if (className1 === true) {
+			icon = 'fa fa-caret-down';
+		 } else if (className2 === true) {
+			 icon = 'fa fa-caret-up';
+		  } else {
+			icon = '';
+		  }
+        if (nameClass === true) {
+            nameCls = icon; 
+		} else if (englishClass === true) {
+			engCls = icon;
+		} else if (tamClass === true) {
+			tamCls = icon;
+		} else if (mathClass === true) {
+			mathCls = icon;
+		} else if (sciClass === true) {
+			sciCls = icon;
+		} else if (socClass === true) {
+			socCls = icon;
+		} else if (totalClass === true) {
+			totalCls = icon;
+		} else if (rankClass === true) {
+			rankCls = icon;
 		} 
-        return(
-        <thead style={{textAlign:"center"}}>
-			<tr style ={{backgroundColor:"black",color:"white"}}>
-                <th style={{width:"120px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'name')} style={{padding:"12px 30px"}} href="#" 
-                    className="w-100 text-decoration-none text-white" >Name<i className={nameClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"80px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'english')} style={{padding:"12px 10x"}} href="#" 
-                    className="w-100 text-decoration-none text-white">English<i className={engClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"76px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'tamil')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Tamil<i className={tamClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"83px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'maths')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Maths<i className={mathClass} style={{marginLeft:"5px"}} ></i></a></th>
-                <th style={{width:"92px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'science')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Science<i className={sciClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"80px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'social')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Social<i className={socClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"76px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'total')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Total<i className={totalClass} style={{marginLeft:"5px"}}></i></a></th>
-                <th style={{width:"73px",padding:"12px 0px"}}><a onClick={this.sortBynum.bind(this,'rank')} style={{padding:"12px 10px"}} href="#" 
-                    className="w-100 text-decoration-none text-white">Rank<i className={rankClass} style={{marginLeft:"5px"}}></i></a></th>
+        return (
+        <thead style={{ textAlign: 'center' }}>
+			<tr style={{ backgroundColor: 'black', color: 'white' }}>
+                <th style={{ width: '120px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'name')}
+						style={{ padding: '12px 30px' }} 
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Name
+						<i className={nameCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '80px', padding: '12px 0px' }}>
+					<button
+						type="button"
+						onClick={this.sortBynum.bind(this, 'english')}
+						style={{ padding: '12px 10x' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						English
+						<i className={engCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '76px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'tamil')}
+						style={{ padding: '12px 10px' }} 
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Tamil
+						<i className={tamCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '83px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'maths')}
+						style={{ padding: '12px 10px' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Maths
+						<i className={mathCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '92px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'science')}
+						style={{ padding: '12px 10px' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Science
+						<i className={sciCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '80px', padding: '12px 0px' }}>
+					<button
+						type="button"
+						onClick={this.sortBynum.bind(this, 'social')}
+						style={{ padding: '12px 10px' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Social
+						<i className={socCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '76px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'total')}
+						style={{ padding: '12px 10px' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Total
+						<i className={totalCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
+                <th style={{ width: '73px', padding: '12px 0px' }}>
+					<button 
+						type="button"
+						onClick={this.sortBynum.bind(this, 'rank')}
+						style={{ padding: '12px 10px' }}
+                    	className="w-100 text-decoration-none text-white"
+					>
+						Rank
+						<i className={rankCls} style={{ marginLeft: '5px' }} />
+					</button>
+                </th>
 				<th>Photo</th>
 				<th>Gender</th>
 				<th>Section</th>
 				<th>Action</th>
 			</tr>
-		</thead>
-        )
+        </thead>
+        );
     }    
 }
 
-const mapStatetoProps = (state) =>{
-    return{
-        post : state
-    }
-  }
-  const mapDispatchtoProps = (dispatch) => {
-    return {
-        direction : (data) => {dispatch({type: "SORT_DIRECTION", data: data})},
-        sort : (data,class1,class2) => {dispatch({type: "SORTING", data: data,className1: class1 ,className2: class2})},
-        icon : (data) => {dispatch({type: "ICON", data: data})},
-        allclass : () => {dispatch({type: "ALL_CLASS"})},
-        keyItem : (data) => {dispatch({type: "KEY",data: data})},
-        sortOn : (data) => {dispatch({type: "SORT_ON",data: data})}
-    }
-  }
+const mapStatetoProps = (state) => ({
+        post: state
+ });
 
-export default connect(mapStatetoProps,mapDispatchtoProps)(Tablehead)
+const mapDispatchtoProps = (dispatch) => ({
+        directionValue: (data) => { dispatch({ type: 'SORT_DIRECTION', data }); },
+        sort: (data, class1, class2) => {
+			dispatch({
+ 				type: 'SORTING', data, className1: class1, className2: class2 
+					}); 
+			},
+        icon: (data) => { dispatch({ type: 'ICON', data }); },
+        allclass: () => { dispatch({ type: 'ALL_CLASS' }); },
+        keyItem: (data) => { dispatch({ type: 'KEY', data }); },
+        sortOn: (data) => { dispatch({ type: 'SORT_ON', data }); }
+    });
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(Tablehead);
