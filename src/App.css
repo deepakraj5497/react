@@ -1,3 +1,8 @@
 .error {
   border: 1px solid red;
 }
+.headingButton{
+  background-color: black;
+  border: 0;
+  font-weight: bold;
+}

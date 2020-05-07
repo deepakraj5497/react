@@ -115,8 +115,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'name')}
-						style={{ padding: '12px 30px' }} 
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Name
 						<i className={nameCls} style={{ marginLeft: '5px' }} />
@@ -126,8 +125,7 @@ class Tablehead extends React.Component {
 					<button
 						type="button"
 						onClick={this.sortBynum.bind(this, 'english')}
-						style={{ padding: '12px 10x' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						English
 						<i className={engCls} style={{ marginLeft: '5px' }} />
@@ -137,8 +135,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'tamil')}
-						style={{ padding: '12px 10px' }} 
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Tamil
 						<i className={tamCls} style={{ marginLeft: '5px' }} />
@@ -148,8 +145,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'maths')}
-						style={{ padding: '12px 10px' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Maths
 						<i className={mathCls} style={{ marginLeft: '5px' }} />
@@ -159,8 +155,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'science')}
-						style={{ padding: '12px 10px' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Science
 						<i className={sciCls} style={{ marginLeft: '5px' }} />
@@ -170,8 +165,7 @@ class Tablehead extends React.Component {
 					<button
 						type="button"
 						onClick={this.sortBynum.bind(this, 'social')}
-						style={{ padding: '12px 10px' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Social
 						<i className={socCls} style={{ marginLeft: '5px' }} />
@@ -181,8 +175,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'total')}
-						style={{ padding: '12px 10px' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Total
 						<i className={totalCls} style={{ marginLeft: '5px' }} />
@@ -192,8 +185,7 @@ class Tablehead extends React.Component {
 					<button 
 						type="button"
 						onClick={this.sortBynum.bind(this, 'rank')}
-						style={{ padding: '12px 10px' }}
-                    	className="w-100 text-decoration-none text-white"
+                    	className="headingButton w-100 text-decoration-none text-white"
 					>
 						Rank
 						<i className={rankCls} style={{ marginLeft: '5px' }} />
