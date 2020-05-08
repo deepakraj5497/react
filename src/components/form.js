@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
 
 class Form extends React.Component {
 	change = (event) => {
@@ -270,6 +271,10 @@ class Form extends React.Component {
 		);
 	}
 }
+
+Form.propTypes = {
+    errorclass: Proptypes.shape.isRequired
+};
 
 const mapStatetoProps = (state) => ({
         post: state

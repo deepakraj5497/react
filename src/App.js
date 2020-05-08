@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { 
     BrowserRouter as Router, Switch, Route, Link 
   } from 'react-router-dom';
+import Proptypes from 'prop-types';
 import './App.css';
 import Tabledata from './components/tabledata';
 import Form from './components/form';
@@ -83,6 +84,12 @@ class StudentTable extends React.Component {
     );
   }
 }
+
+StudentTable.propTypes = {
+    post: Proptypes.arrayOf(Proptypes.objects),
+    pageSize: Proptypes.number
+};
+
 
 const mapStatetoProps = (state) => ({
     post: state
