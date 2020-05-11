@@ -111,18 +111,17 @@ const reducerExample = (state = initialState, action) => {
                 index: action.data.i
             };
         case 'UPDATE_DATA': {
-                const newArray = state.duplicate.filter(() => state.duplicate.splice(state.index, 1, action.data));
-                const index = state.duplicate2.filter((post, i) => {
-                if (action.data.id === post.id) { 
-                    state.duplicate2[i] = action.data; 
-                }
-                return state.duplicate2;
-               });
+                const newArray = state.duplicate.filter(
+                    () => state.duplicate.splice(state.index, 1, action.data)
+                    );
+                console.log(state.duplicate2);
              return {
                 ...state,
                 post: newArray,
                 duplicate: newArray,
-                duplicate2: index,
+                duplicate2: state.duplicate2.map((content) => (
+                    action.data.id === content.id ? { ...content, content: action.data } : content
+                    )),
                 add: true,
                 name: '',
                 english: '',
@@ -200,15 +199,13 @@ const reducerExample = (state = initialState, action) => {
                 sortOn: action.data
             };
         case 'TOTAL_RANK': {
-            
-            const rank = state.post.map((post, index) => { 
-                state.post[index].total = action.total[index];
-                state.post[index].rank = action.rank[index]; 
-            });
-            console.log(rank);
             return {
                 ...state,
-                post: rank
+                post: state.post.forEach((content, i) => { 
+                    const data = content; 
+                    data.total = action.total[i];
+                    data.rank = action.rank[i];
+                })
             };
         }
         case 'ERROR': 

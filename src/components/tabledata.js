@@ -32,7 +32,7 @@ class Tabledata extends React.Component {
 				post 
 				}, totalrank 
 			} = this.props;
-		post.map((n) => {
+		post.forEach((n) => {
 			const {
 				english, tamil, maths, science, social 
 			} = n;
@@ -51,11 +51,12 @@ class Tabledata extends React.Component {
 		let rankAll;
 		for (p = 0; p < ordered.length; p += 1) {
 			const data = unorder[p];
-			ordered.forEach((item) => { 
-				if (item === data) {
+			for (let i = 0; i < ordered.length; i += 1) {
+				console.log(ordered[i]);
+				if (ordered[i] === data) {
 					rankIndex = ordered.indexOf(data) + 1;
 				}
-			}); 
+			}
 			rank = `${rank + rankIndex},`;
 			rankAll = rank.split(',').map(Number);
 			rankAll.pop();
@@ -66,7 +67,6 @@ class Tabledata extends React.Component {
 	delete(key) {
 		const { deleteItem, post: { duplicate, currentPage } } = this.props;
 		const { id } = duplicate[currentPage + key];
-		console.log(id);
 		deleteItem(id);
 	}
 
@@ -111,7 +111,7 @@ class Rank extends React.PureComponent {
     	let rankIndex;		
 		let rankArr = ''; let unorder; let tot; let ordered;
 		const { post, total } = this.props;
-    	post.map((n) => {
+    	post.forEach((n) => {
         	const {
  				english, tamil, maths, science, social 
 				} = n;

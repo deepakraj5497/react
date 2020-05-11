@@ -90,7 +90,6 @@ StudentTable.propTypes = {
     pageSize: Proptypes.number
 };
 
-
 const mapStatetoProps = (state) => ({
     post: state
 });
