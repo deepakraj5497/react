@@ -38,7 +38,6 @@ class Tabledata extends React.Component {
 			} = n;
 			total = english + tamil + maths + science + social;
 			rankArr = `${rankArr}${total},`;
-			console.log(rankArr);
 			unorder = rankArr.split(',').map(Number);
 			unorder.pop();
 			ordered = unorder.slice().sort((a, b) => (
@@ -52,7 +51,6 @@ class Tabledata extends React.Component {
 		for (p = 0; p < ordered.length; p += 1) {
 			const data = unorder[p];
 			for (let i = 0; i < ordered.length; i += 1) {
-				console.log(ordered[i]);
 				if (ordered[i] === data) {
 					rankIndex = ordered.indexOf(data) + 1;
 				}
