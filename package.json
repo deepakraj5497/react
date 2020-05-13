@@ -20,6 +20,8 @@
     "redux": "^4.0.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "lint": "eslint src",
     "start": "react-scripts start",
     "build": "react-scripts build",
