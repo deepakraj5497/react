@@ -12,7 +12,7 @@ class Form extends React.Component {
 			} if (value < 100) {
 				value = event.target.value.substr(0, 3);
 			} else {
-				value = event.target.value.replace(/[^0-9.]/g, '');
+				value = event.target.value.replace(/[^0-9.]/g , '');
 			}
 		}
 		if (name !== '') {
