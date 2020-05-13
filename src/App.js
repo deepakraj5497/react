@@ -17,24 +17,24 @@ function App() {
       <nav className="navbar navbar-expand-sm bg-light justify-content-center">
 			  <ul className="list-unstyled navbar-nav font-weight-bolder">
           <li className="nav-item">
-					  <Link className="nav-link" to="/">Home</Link>
+					  <Link className="nav-link" to="/react">Home</Link>
           </li>
 				  <li className="nav-item">
-					  <Link className="nav-link" to="/form">Form</Link>
+					  <Link className="nav-link" to="/react/form">Form</Link>
 				  </li>
 				  <li className="nav-item">
-					  <Link className="nav-link" to="/studentlist">Student List</Link>
+					  <Link className="nav-link" to="/react/studentlist">Student List</Link>
 				  </li>
 			  </ul>
       </nav>
 			<Switch>
-				<Route path="/form">
+				<Route path="/react/form">
 					<Form />
 				</Route>
-				<Route path="/studentlist">
+				<Route path="/react/studentlist">
 					<StudentTable />
 				</Route>
-        <Route path="/">
+        <Route path="/react">
 					<Home />
         </Route>
 			</Switch>
