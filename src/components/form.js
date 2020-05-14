@@ -1,43 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
 
 class Form extends React.Component {
-	change = (event) => {
-		const { name } = event.target;
-		let { value } = event.target;
-		if (name === 'english' || name === 'tamil' || name === 'maths' || name === 'science' || name === 'social') {
-			if (value > 100) {
-				return;
-			} if (value < 100) {
-				value = event.target.value.substr(0, 3);
-			} else {
-				value = event.target.value.replace(/[^0-9.]/g , '');
-			}
+	componentDidMount() {
+		const {
+			redirect
+			} = this.props;
+		  redirect('');
 		}
-		if (name !== '') {
-			const { errorclass } = this.props;
-			if (name === 'name') {
-				errorclass('nameCheck', 'form-control');
-			} else if (name === 'english') {
-				errorclass('englishCheck', 'form-control');
-			} else if (name === 'tamil') {
-				errorclass('tamilCheck', 'form-control');
-			} else if (name === 'maths') {
-				errorclass('mathsCheck', 'form-control');
-			} else if (name === 'science') {
-				errorclass('scienceCheck', 'form-control');
-			} else if (name === 'social') {
-				errorclass('socialCheck', 'form-control');
-			}
-		}
-	}
 
 	handleUpdate() {
 		const { 
 				post: { 
-					name, english, tamil, maths, science, social, id 
-					}, errorclass, noerror, updateData, success 
+					name, english, tamil, maths, science, social, id, gender, section
+					}, errorclass, noerror, updateData, redirect
 			} = this.props;
 		const data = {
 				name,
@@ -46,7 +22,9 @@ class Form extends React.Component {
 				maths: parseInt(maths, 10),
 				science: parseInt(science, 10),
 				social: parseInt(social, 10),
-				id 
+				id,
+				gender,
+				section 
 		};
 		if (name === '' || english === '' || tamil === '' || maths === '' || science === '' || social === '') {
 			if (name === '') {
@@ -66,14 +44,15 @@ class Form extends React.Component {
 		}
 		noerror('form-control');
 		updateData(data);
-		success('Updated Successfully');
+		window.alert("Updated successfully");
+		redirect(false);
 	}
 
 	handleClick() {
 		const { 
 			post: { 
-				name, english, tamil, maths, science, social, duplicate 
-				}, errorclass, noerror, addData, success 
+				name, english, tamil, maths, science, social, duplicate, gender, section 
+				}, errorclass, noerror, addData, redirectadd
 			} = this.props;
 		const id = duplicate.length + 1;
 		const newData = {
@@ -83,7 +62,9 @@ class Form extends React.Component {
 						maths: parseInt(maths, 10),
 						science: parseInt(science, 10),
 						social: parseInt(social, 10),
-						id 
+						id, 
+						gender,
+						section 
 						};
 			if (name === '' || english === '' || tamil === '' || maths === '' || science === '' || social === '') {
 			if (name === '') {
@@ -104,12 +85,15 @@ class Form extends React.Component {
 		noerror('form-control');	
 		const data = duplicate.concat(newData);
 		addData(data, newData);
-		success('Added Successfully');
+		window.alert("Added successfully");
+		redirectadd(true);
 	}
 
 	handleChange(e) {
 		const { name } = e.target;
 		let { value } = e.target;
+		console.log(name);
+		console.log(value);
 		const { errorclass, inputChange } = this.props;
 		if (name === 'english' || name === 'tamil' || name === 'maths' || name === 'science' || name === 'social') {
 			if (value > 100) {
@@ -143,7 +127,7 @@ class Form extends React.Component {
 		const { 
 			post: { 
 					add, name, nameCheck, english, englishCheck, tamil, tamilCheck,
-					maths, mathsCheck, social, socialCheck, science, scienceCheck, success
+					maths, mathsCheck, social, socialCheck, science, scienceCheck, success, gender, section
 				  }
 			} = this.props;
 		if (add === true) {
@@ -243,26 +227,26 @@ class Form extends React.Component {
 					<input type="file" className="form-control-file border" name="file" onChange={this.handleImage} />
 				<br />
 				</div>
-				<div className="form-check-inline">
-  					<label htmlFor="male" className="form-check-label">
-    				<input type="radio" className="form-check-input" name="male" />
-					Male
+				<div className="form-group">
+  					<label htmlFor="male">
+					  <input type="radio" name="gender" onChange={this.handleChange.bind(this)} checked={gender === 'male'} value="male" /> 
+					  Male 
 				   </label>
-				</div>
-				<div className="form-check-inline mb-4">
-  					<label htmlFor="female" className="form-check-label">
-    				<input type="radio" className="form-check-input" name="female" />
-					Female
+				   <br />
+  					<label htmlFor="female">
+					  <input type="radio" name="gender" onChange={this.handleChange.bind(this)} checked={gender === 'female'} value="female" />  
+					  Female
 				   </label>
+					<br />
 				</div>
 				<div className="form-group">
 					<label htmlFor="department" className="font-weight-bold">
 						Department:
 				<br />
-					<select>
-						<option value="A">A</option>
-						<option value="B">B</option>
-						<option value="C">C</option>
+					<select onChange={this.handleChange.bind(this)} name="section">
+						<option selected={section === 'A'} value="A">A</option>
+						<option selected={section === 'B'} value="B">B</option>
+						<option selected={section === 'C'} value="C">C</option>
 					</select>
 					</label>
 				</div>
@@ -271,10 +255,6 @@ class Form extends React.Component {
 		);
 	}
 }
-
-Form.propTypes = {
-    errorclass: Proptypes.shape.isRequired
-};
 
 const mapStatetoProps = (state) => ({
         post: state
@@ -285,7 +265,9 @@ const mapDispatchtoProps = (dispatch) => ({
 		updateData: (data) => { dispatch({ type: 'UPDATE_DATA', data }); },
 		errorclass: (name, data) => { dispatch({ type: 'ERROR', name, data }); },
 		success: (data) => { dispatch({ type: 'SUCCESS', data }); },
-		noerror: (data) => { dispatch({ type: 'NOERROR', data }); }
+		noerror: (data) => { dispatch({ type: 'NOERROR', data }); },
+		redirect: (data) => { dispatch({ type: 'REDIRECT', data }); },
+		redirectadd: (data) => { dispatch({ type: 'REDIRECT_ADD', data }); }
     });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(Form);

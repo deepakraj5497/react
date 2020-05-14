@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-    BrowserRouter as Router, Switch, Route, Link 
+    BrowserRouter as Router, Switch, Route, Link, Redirect 
   } from 'react-router-dom';
-import Proptypes from 'prop-types';
 import './App.css';
-import Tabledata from './components/tabledata';
+import Home from './components/home';
+import StudentTable from './components/studenttable';
 import Form from './components/form';
-import Tablehead from './components/table-head';
-import Pagination from './components/pagination';
 
-function App() {
+
+function App(props) {
   return (
 	<Router>
 		<div className="text-center">
@@ -28,12 +27,27 @@ function App() {
 			  </ul>
       </nav>
 			<Switch>
-				<Route path="/react/form">
-					<Form />
-				</Route>
-				<Route path="/react/studentlist">
-					<StudentTable />
-				</Route>
+        <Route 
+            path="/react/form" 
+            render={() => {
+            if (props.post.edit === false) {
+              return <Redirect to="/react/studentlist" />;
+            }
+            if (props.post.addRedirect === true) {
+              return <Redirect to="/react/studentlist" />;
+            }
+            return <Form />;
+          }}
+        />
+        <Route 
+          path="/react/studentlist"
+          render={() => {
+            if (props.post.edit === true) {
+              return <Redirect to="/react/form" />;
+            }
+            return (<StudentTable />);
+          }}
+        />
         <Route path="/react">
 					<Home />
         </Route>
@@ -43,57 +57,8 @@ function App() {
   );
 }
 
-function Home() {
-  return <h3 className="mt-5 text-info">WELCOME TO STUDENT TABLE LIST</h3>;
-}
-
-class StudentTable extends React.Component {
-  dropdown = (event) => {
-    const { 
-            post: { 
-                  duplicate
-                }, pageSize
-    } = this.props;
-    pageSize(parseInt(event.target.value, 10), duplicate);
-  }
-  
-  render() {
-   return (
-      <div className="text-center w-75 mx-auto mt-5">
-        <div className="row">
-         <div className="col-12 mt-5">
-            <table className="table table-bordered table-hover">
-              <Tablehead />
-             <tbody>
-                <Tabledata />
-             </tbody>
-            </table>
-            <ul className="pagination justify-content-center">
-              <Pagination />
-            </ul>
-            <form className="text-center">
-							<select onChange={this.dropdown}>
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="15">15</option>
-							</select>
-            </form>
-         </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-StudentTable.propTypes = {
-    post: Proptypes.arrayOf(Proptypes.objects),
-    pageSize: Proptypes.number
-};
-
 const mapStatetoProps = (state) => ({
     post: state
 });
-const mapDispatchtoProps = (dispatch) => ({
-      pageSize: (data, newData) => { dispatch({ type: 'PAGE_SIZE', data, newData }); }
-});
-export default connect(mapStatetoProps, mapDispatchtoProps)(App);
+
+export default connect(mapStatetoProps)(App);

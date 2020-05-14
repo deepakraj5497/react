@@ -8,15 +8,16 @@ class Tabledata extends React.Component {
 
 	getdata(index) {
 		const { 
-			post: { post, currentPage }, getItem 
+			post: { post, currentPage }, getItem, redirect
 			} = this.props;
+		redirect(true);
 		const { 
-			name, english, tamil, maths, science, social, id 
+			name, english, tamil, maths, science, social, id, gender, section 
 		} = post[index];
 		const i = currentPage + index;
 		console.log({ name }); 
 		const data = { 
-			name, english, tamil, maths, science, social, id, i 
+			name, english, tamil, maths, science, social, id, i, gender, section 
 		};
 		getItem(data);
 	}
@@ -63,9 +64,13 @@ class Tabledata extends React.Component {
 	}
 
 	delete(key) {
-		const { deleteItem, post: { duplicate, currentPage } } = this.props;
-		const { id } = duplicate[currentPage + key];
-		deleteItem(id);
+		const conform = window.confirm('are you sure you want to delete this item');
+		console.log(conform);
+		if (conform === true) {
+			const { deleteItem, post: { duplicate, currentPage } } = this.props;
+			const { id } = duplicate[currentPage + key];
+			deleteItem(id);
+		} 
 	}
 
 	render() {
@@ -138,7 +143,8 @@ const mapStatetoProps = (state) => ({
 const mapDispatchtoProps = (dispatch) => ({
 		deleteItem: (id) => { dispatch({ type: 'DELETE_POST', id }); },
 		getItem: (data) => { dispatch({ type: 'UPDATE_POST', data }); },
-		totalrank: (total, rank) => { dispatch({ type: 'TOTAL_RANK', total, rank }); }
+		totalrank: (total, rank) => { dispatch({ type: 'TOTAL_RANK', total, rank }); },
+		redirect: (data) => { dispatch({ type: 'REDIRECT', data }); }
     });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(Tabledata);

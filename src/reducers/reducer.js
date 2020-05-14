@@ -64,7 +64,11 @@ tamilCheck: 'form-control',
 mathsCheck: 'form-control',
 scienceCheck: 'form-control',
 socialCheck: 'form-control',
-success: '' 
+success: '',
+edit: '',
+addRedirect: '',
+gender: 'male',
+department: 'A' 
 };
 
 const reducerExample = (state = initialState, action) => {
@@ -95,9 +99,11 @@ const reducerExample = (state = initialState, action) => {
                 tamil: '',
                 maths: '',
                 science: '',
-                social: ''
+                social: '',
+                gender: 'male'
             };
         case 'UPDATE_POST':
+            console.log(action.data.section);
             return {
                 ...state,
                 name: action.data.name,
@@ -107,6 +113,8 @@ const reducerExample = (state = initialState, action) => {
                 science: action.data.science,
                 social: action.data.social,
                 id: action.data.id,
+                gender: action.data.gender,
+                section: action.data.section,
                 add: false,
                 index: action.data.i
             };
@@ -227,6 +235,18 @@ const reducerExample = (state = initialState, action) => {
             return {
                 ...state,
                 success: action.data
+            };
+        case 'REDIRECT': 
+            console.log(action.data);
+            return {
+                ...state,
+                edit: action.data
+            };
+        case 'REDIRECT_ADD': 
+            console.log(action.data);
+            return {
+                ...state,
+                addRedirect: action.data
             };
         default: 
             return state;
