@@ -13,12 +13,13 @@ class Tabledata extends React.Component {
 		redirect(true);
 		console.log(post);
 		let page = (currentPage - 1) * 5;
+		console.log(page);
 		const { 
 			name, english, tamil, maths, science, social, id, gender, section 
 		} = post[index + page];
-		console.log(index);
-		const i = currentPage + index;
 		console.log({ name }); 
+		const i = index + page;
+		console.log(i);
 		const data = { 
 			name, english, tamil, maths, science, social, id, i, gender, section 
 		};

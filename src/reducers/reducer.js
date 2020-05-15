@@ -99,6 +99,7 @@ const reducerExample = (state = initialState, action) => {
                 gender: 'male'
             };
         case 'UPDATE_POST':
+            console.log(action.data.i);
             return {
                 ...state,
                 name: action.data.name,
@@ -116,7 +117,7 @@ const reducerExample = (state = initialState, action) => {
         case 'UPDATE_DATA': {
                 console.log(action.data);
                 const newArray = state.post.filter(
-                    () => state.post.splice(action.data.id - 1, 1, action.data)
+                    () => state.post.splice(state.index , 1, action.data)
                     );
                 console.log(newArray);
              return {
@@ -128,6 +129,7 @@ const reducerExample = (state = initialState, action) => {
                 tamil: '',
                 maths: '',
                 science: '',
+              
                 social: ''
             };
         }
