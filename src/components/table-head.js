@@ -8,8 +8,10 @@ class Tablehead extends React.Component {
                 key
                }, keyItem, directionValue, allclass, icon
            } = this.props;
-        keyItem(key);
+        keyItem(k);
         if (k !== key) {
+			console.log(k);
+			console.log(key);
 			directionValue('asc');
 			allclass();
 		}
@@ -46,16 +48,17 @@ class Tablehead extends React.Component {
     sorting(key) {
 		const {
             post: {
-                duplicate, direction, duplicate2
+                post, direction
                }, sort, directionValue, sortOn
-           } = this.props;
-		const newArray = [...duplicate];
+		   } = this.props;
+		const newArray = [...post];
 		if (direction === 'asc') {
 			if (key === 'name') {
 				newArray.sort((a, b) => a.name.localeCompare(b.name));
 			} else {
 				newArray.sort((a, b) => a[key] - b[key]);
-            }
+			}
+			console.log(newArray);
             sort(newArray, true, false);
             directionValue('dsc');
             sortOn(true);
@@ -64,14 +67,10 @@ class Tablehead extends React.Component {
 				newArray.sort((a, b) => b.name.localeCompare(a.name));
 			} else {
 				newArray.sort((a, b) => b[key] - a[key]);
-            }
+			}
             sort(newArray, false, true);
-            directionValue('');
-		} else {
-            sort(duplicate2, false, false);
             directionValue('asc');
-            sortOn(true);
-		}	
+		} 
 	}
 
     render() {
@@ -215,7 +214,8 @@ const mapDispatchtoProps = (dispatch) => ({
         icon: (data) => { dispatch({ type: 'ICON', data }); },
         allclass: () => { dispatch({ type: 'ALL_CLASS' }); },
         keyItem: (data) => { dispatch({ type: 'KEY', data }); },
-        sortOn: (data) => { dispatch({ type: 'SORT_ON', data }); }
+		sortOn: (data) => { dispatch({ type: 'SORT_ON', data }); },
+		duplicateItem: (data) => { dispatch({ type: 'DUPLICATE_POST', data }); }
     });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(Tablehead);

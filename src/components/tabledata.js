@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class Tabledata extends React.Component {
 	componentDidMount() {
-		this.totalRank();
+		this.totalRank(); 
 	}
 
 	getdata(index) {
@@ -11,9 +11,11 @@ class Tabledata extends React.Component {
 			post: { post, currentPage }, getItem, redirect
 			} = this.props;
 		redirect(true);
+		console.log(post);
 		const { 
 			name, english, tamil, maths, science, social, id, gender, section 
 		} = post[index];
+		console.log(index);
 		const i = currentPage + index;
 		console.log({ name }); 
 		const data = { 
@@ -67,27 +69,27 @@ class Tabledata extends React.Component {
 		const conform = window.confirm('are you sure you want to delete this item');
 		console.log(conform);
 		if (conform === true) {
-			const { deleteItem, post: { duplicate, currentPage } } = this.props;
-			const { id } = duplicate[currentPage + key];
-			deleteItem(id);
+			const { deleteItem, post: { post, currentPage } } = this.props;
+			console.log(key);
+			const { id } = post[currentPage + key];
+			console.log(id);
+			deleteItem(key);
 		} 
 	}
 
 	render() {
-		let data;
-		const { post: { post, duplicate } } = this.props;
-		if (duplicate !== '') {
-			data = duplicate;
-		} else {
-			data = post;
-		}
-		return post.map((n, i) => {
+		const { post: { post, pageSize, currentPage } } = this.props;
+		const lastIndex = currentPage * pageSize;
+		const firstIndex = lastIndex - pageSize;
+		const currentItem = post.slice(firstIndex, lastIndex);
+		return currentItem.map((n, i) => {
 		const {
- 			name, english, tamil, maths, science, social, img, gender, section 
+ 			name, english, tamil, maths, science, social, img, gender, section, id
 			} = n;
 		const total = english + tamil + maths + science + social;
 		return (
-			<tr key={i} className="allRows">
+
+			<tr key={id} className="allRows">
            		<td>{name}</td>
           		<td>{english}</td>
            		<td>{tamil}</td>
@@ -95,13 +97,13 @@ class Tabledata extends React.Component {
 				<td>{science}</td>
 				<td>{social}</td>
 				<td className="total">{total}</td>
-				<Rank total={total} post={data} />
+				<Rank total={total} post={post} />
 				<td><img src={img} alt="students img" width="75px" height="50px" /></td>
 				<td>{gender}</td>
 				<td>{section}</td>
 				<td>
 					<button type="button" className="btn btn-info mr-3 py-0" onClick={this.getdata.bind(this, i)}>edit</button>
-					<button type="button" className="btn btn-danger py-0" onClick={this.delete.bind(this, i)}>del</button>
+					<button type="button" className="btn btn-danger py-0" onClick={this.delete.bind(this, id)}>del</button>
 				</td>
    </tr>
 			);			

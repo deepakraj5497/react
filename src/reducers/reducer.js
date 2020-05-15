@@ -41,10 +41,7 @@ social: '',
 id: '',
 index: '',
 pageSize: 5,
-duplicate: '',
-duplicate2: '',
-currentPage: 0,
-active: 0,
+currentPage: 1,
 sortOn: false,
 direction: 'asc',
 className1: false,
@@ -68,19 +65,19 @@ success: '',
 edit: '',
 addRedirect: '',
 gender: 'male',
-department: 'A' 
+department: 'A',
+copy() {
+   return [...this.post];
+}
 };
 
 const reducerExample = (state = initialState, action) => {
     switch (action.type) {
         case 'DELETE_POST': {
-                const newData = state.duplicate.filter((post) => action.id !== post.id);
-                const newData2 = state.duplicate2.filter((post) => action.id !== post.id);
+                const newData = state.post.filter((post) => action.id !== post.id);
             return {
                 ...state,
-                post: newData,
-                duplicate: newData,
-                duplicate2: newData2
+                post: newData
              };
             }
         case 'INPUT_CHANGE': 
@@ -89,11 +86,10 @@ const reducerExample = (state = initialState, action) => {
                 [action.name]: action.value
             };
         case 'ADD_DATA': 
+            console.log(action.data);
             return {
                 ...state,
                 post: action.data,
-                duplicate: action.data,
-                duplicate2: state.duplicate2.concat(action.newData),
                 name: '',
                 english: '',
                 tamil: '',
@@ -103,7 +99,6 @@ const reducerExample = (state = initialState, action) => {
                 gender: 'male'
             };
         case 'UPDATE_POST':
-            console.log(action.data.section);
             return {
                 ...state,
                 name: action.data.name,
@@ -119,17 +114,14 @@ const reducerExample = (state = initialState, action) => {
                 index: action.data.i
             };
         case 'UPDATE_DATA': {
-                const newArray = state.duplicate.filter(
-                    () => state.duplicate.splice(state.index, 1, action.data)
+                console.log(action.data);
+                const newArray = state.post.filter(
+                    () => state.post.splice(action.data.id - 1, 1, action.data)
                     );
-                console.log(state.duplicate2);
+                console.log(newArray);
              return {
                 ...state,
                 post: newArray,
-                duplicate: newArray,
-                duplicate2: state.duplicate2.map((content) => (
-                    action.data.id === content.id ? { ...content, content: action.data } : content
-                    )),
                 add: true,
                 name: '',
                 english: '',
@@ -139,26 +131,10 @@ const reducerExample = (state = initialState, action) => {
                 social: ''
             };
         }
-        case 'SHOW_POST': 
-            return {
-                ...state,
-                post: action.data
-            };
-        case 'DUPLICATE_POST': 
-            return {
-                ...state,
-                duplicate: action.data,
-                duplicate2: action.data
-            };
         case 'CURRENT_PAGE': 
             return {
                 ...state,
                 currentPage: action.data
-            };
-        case 'ACTIVE_PAGE': 
-            return {
-                ...state,
-                active: action.data
             };
         case 'PAGE_SIZE': 
             return {
@@ -172,10 +148,10 @@ const reducerExample = (state = initialState, action) => {
                 direction: action.data
             };
         case 'SORTING': 
+            console.log(action.data);
             return {
                 ...state,
                 post: action.data,
-                duplicate: action.data,
                 className1: action.className1,
                 className2: action.className2
             };
@@ -207,13 +183,16 @@ const reducerExample = (state = initialState, action) => {
                 sortOn: action.data
             };
         case 'TOTAL_RANK': {
+            const totalRank = [];
+            state.post.forEach((content, i) => { 
+                const data = content; 
+                data.total = action.total[i];
+                data.rank = action.rank[i];
+                totalRank.push(data);
+            });
             return {
                 ...state,
-                post: state.post.forEach((content, i) => { 
-                    const data = content; 
-                    data.total = action.total[i];
-                    data.rank = action.rank[i];
-                })
+                post: totalRank
             };
         }
         case 'ERROR': 
@@ -237,16 +216,19 @@ const reducerExample = (state = initialState, action) => {
                 success: action.data
             };
         case 'REDIRECT': 
-            console.log(action.data);
             return {
                 ...state,
                 edit: action.data
             };
         case 'REDIRECT_ADD': 
-            console.log(action.data);
             return {
                 ...state,
                 addRedirect: action.data
+            };
+        case 'DUPLICATE_POST': 
+            return {
+                ...state,
+                duplicate: action.data
             };
         default: 
             return state;

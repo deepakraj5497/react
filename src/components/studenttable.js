@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Table } from 'reactstrap';
 import Tabledata from './tabledata';
 import Tablehead from './table-head';
 import Pagination from './pagination';
@@ -27,15 +28,15 @@ class StudentTable extends React.Component {
         <div className="text-center w-75 mx-auto mt-5">
           <div className="row">
            <div className="col-12 mt-5">
-              <table className="table table-bordered table-hover">
+              <Table striped>
                 <Tablehead />
                <tbody>
                   <Tabledata />
                </tbody>
-              </table>
-              <ul className="pagination justify-content-center">
+              </Table>
+            <ul className="pagination justify-content-center">
                 <Pagination />
-              </ul>
+            </ul>
               <form className="text-center">
                   <select onChange={this.dropdown}>
                     <option value="5">5</option>

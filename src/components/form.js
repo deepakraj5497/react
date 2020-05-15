@@ -51,10 +51,11 @@ class Form extends React.Component {
 	handleClick() {
 		const { 
 			post: { 
-				name, english, tamil, maths, science, social, duplicate, gender, section 
+				post, name, english, tamil, maths, science, social, gender, section 
 				}, errorclass, noerror, addData, redirectadd
 			} = this.props;
-		const id = duplicate.length + 1;
+		console.log(this.props.post.post);
+		const id = post.length + 1;
 		const newData = {
  						name,
 						english: parseInt(english, 10),
@@ -83,7 +84,9 @@ class Form extends React.Component {
 			return;	
 		}
 		noerror('form-control');	
-		const data = duplicate.concat(newData);
+		const data = post.concat(newData);
+		console.log(newData);
+		console.log(data);
 		addData(data, newData);
 		window.alert("Added successfully");
 		redirectadd(true);
@@ -243,10 +246,10 @@ class Form extends React.Component {
 					<label htmlFor="department" className="font-weight-bold">
 						Department:
 				<br />
-					<select onChange={this.handleChange.bind(this)} name="section">
-						<option selected={section === 'A'} value="A">A</option>
-						<option selected={section === 'B'} value="B">B</option>
-						<option selected={section === 'C'} value="C">C</option>
+					<select value={section} onChange={this.handleChange.bind(this)} name="section">
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
 					</select>
 					</label>
 				</div>
