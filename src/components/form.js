@@ -1,13 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+	 Form, FormGroup, Label, Input, FormText 
+		} from 'reactstrap';
 
-class Form extends React.Component {
+class FormInput extends React.Component {
 	componentDidMount() {
 		const {
 			redirect
 			} = this.props;
 		  redirect('');
 		}
+	
+	handleChange=(e) => {
+		const { name } = e.target;
+		let { value } = e.target;
+		console.log(name);
+		console.log(value);
+		const { errorclass, inputChange } = this.props;
+		if (name === 'english' || name === 'tamil' || name === 'maths' || name === 'science' || name === 'social') {
+			if (value > 100) {
+				return;
+			} if (value < 100) {
+				value = e.target.value.substr(0, 3);
+			} else {
+				value = e.target.value.replace(/[^0-9.]/g, '');
+			}
+		}
+		if (name !== '') {
+			if (name === 'name') {
+				errorclass('nameCheck', 'form-control');
+			} else if (name === 'english') {
+				errorclass('englishCheck', 'form-control');
+			} else if (name === 'tamil') {
+				errorclass('tamilCheck', 'form-control');
+			} else if (name === 'maths') {
+				errorclass('mathsCheck', 'form-control');
+			} else if (name === 'science') {
+				errorclass('scienceCheck', 'form-control');
+			} else if (name === 'social') {
+				errorclass('socialCheck', 'form-control');
+			}
+		}
+		inputChange(name, value);
+	}
 
 	handleUpdate() {
 		const { 
@@ -54,7 +90,6 @@ class Form extends React.Component {
 				post, name, english, tamil, maths, science, social, gender, section 
 				}, errorclass, noerror, addData, redirectadd
 			} = this.props;
-		console.log(this.props.post.post);
 		const id = post.length + 1;
 		const newData = {
  						name,
@@ -90,39 +125,7 @@ class Form extends React.Component {
 		addData(data, newData);
 		window.alert("Added successfully");
 		redirectadd(true);
-	}
-
-	handleChange(e) {
-		const { name } = e.target;
-		let { value } = e.target;
-		console.log(name);
-		console.log(value);
-		const { errorclass, inputChange } = this.props;
-		if (name === 'english' || name === 'tamil' || name === 'maths' || name === 'science' || name === 'social') {
-			if (value > 100) {
-				return;
-			} if (value < 100) {
-				value = e.target.value.substr(0, 3);
-			} else {
-				value = e.target.value.replace(/[^0-9.]/g, '');
-			}
-		}
-		if (name !== '') {
-			if (name === 'name') {
-				errorclass('nameCheck', 'form-control');
-			} else if (name === 'english') {
-				errorclass('englishCheck', 'form-control');
-			} else if (name === 'tamil') {
-				errorclass('tamilCheck', 'form-control');
-			} else if (name === 'maths') {
-				errorclass('mathsCheck', 'form-control');
-			} else if (name === 'science') {
-				errorclass('scienceCheck', 'form-control');
-			} else if (name === 'social') {
-				errorclass('socialCheck', 'form-control');
-			}
-		}
-		inputChange(name, value);
+		console.log(this.refs.ref);
 	}
 
 	render() {
@@ -130,7 +133,7 @@ class Form extends React.Component {
 		const { 
 			post: { 
 					add, name, nameCheck, english, englishCheck, tamil, tamilCheck,
-					maths, mathsCheck, social, socialCheck, science, scienceCheck, success, gender, section
+					maths, mathsCheck, social, socialCheck, science, scienceCheck, gender, section
 				  }
 			} = this.props;
 		if (add === true) {
@@ -139,122 +142,124 @@ class Form extends React.Component {
 			button = <button type="button" className="btn btn-info" onClick={this.handleUpdate.bind(this)}>update Member</button>;
 		}
 		return (
-			<div className="w-25 mx-auto">
+			<Form className="w-25 mx-auto">
 				<h4 className="mt-3 text-info">STUDENT TABLE LIST UPDATER</h4>
-				<p className="text-success font-weight-bold">{success}</p>
-				<div className="form-group">
-					<label htmlFor="name" className="font-weight-bold">
+				<FormGroup>
+					<Label htmlFor="name" className="font-weight-bold">
 						Name:
 					<br />
-					<input
+					<Input
 						type="text"
 						name="name"
 						value={name}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={nameCheck}
 					/>
-					</label>
+					</Label>
 					<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="english" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="english" className="font-weight-bold">
 						English:
 					<br />
-					<input
+					<Input
 						type="text"
 						name="english"
 						value={english}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={englishCheck}
 					/>
-					</label>
+					</Label>
 					<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="tamil" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="tamil" className="font-weight-bold">
 						Tamil:
 					<br />
-					<input
+					<Input
 						type="text"
 						name="tamil"
 						value={tamil}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={tamilCheck}
 					/>
-					</label>
+					</Label>
 				<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="maths" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="maths" className="font-weight-bold">
 						Maths:
 					<br />
-					<input
+					<Input
 						type="text"
 						name="maths"
 						value={maths}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={mathsCheck}
 					/>
-					</label>
+					</Label>
 					<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="science" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="science" className="font-weight-bold">
 						Science:
 						<br />
-					<input
+					<Input
 						type="text"
 						name="science"
 						value={science}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={scienceCheck}
 					/>
-					</label>
+					</Label>
 				<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="social" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="social" className="font-weight-bold">
 						Social:
 				<br />
-					<input
+					<Input
 						type="text"
 						name="social"
 						value={social}
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleChange}
 						className={socialCheck}
 					/>
-					</label>
+					</Label>
 				<br />
-				</div>
-				<div className="form-group">
-					<input type="file" className="form-control-file border" name="file" onChange={this.handleImage} />
+				</FormGroup>
+				<FormGroup>
+					<Input type="file" className="form-control-file border" name="file" onChange={this.handleImage} />
+				    <FormText color="muted">
+						Choose a student piture
+        </FormText>
 				<br />
-				</div>
-				<div className="form-group">
-  					<label htmlFor="male">
-					  <input type="radio" name="gender" onChange={this.handleChange.bind(this)} checked={gender === 'male'} value="male" /> 
+				</FormGroup>
+				<FormGroup>
+  					<Label htmlFor="male">
+					  <Input type="radio" name="gender" onChange={this.handleChange} checked={gender === 'male'} value="male" /> 
 					  Male 
-				   </label>
+				   </Label>
 				   <br />
-  					<label htmlFor="female">
-					  <input type="radio" name="gender" onChange={this.handleChange.bind(this)} checked={gender === 'female'} value="female" />  
+  					<Label htmlFor="female">
+					  <Input type="radio" name="gender" onChange={this.handleChange} checked={gender === 'female'} value="female" />  
 					  Female
-				   </label>
+				   </Label>
 					<br />
-				</div>
-				<div className="form-group">
-					<label htmlFor="department" className="font-weight-bold">
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="department" className="font-weight-bold">
 						Department:
 				<br />
-					<select value={section} onChange={this.handleChange.bind(this)} name="section">
+					<Input className="w-75 mx-auto" type="select" value={section} onChange={this.handleChange} name="section">
 						<option value="A">A</option>
 						<option value="B">B</option>
 						<option value="C">C</option>
-					</select>
-					</label>
-				</div>
+					</Input>
+					</Label>
+				</FormGroup>
 				{button}
-			</div>
+			</Form>
 		);
 	}
 }
@@ -273,4 +278,4 @@ const mapDispatchtoProps = (dispatch) => ({
 		redirectadd: (data) => { dispatch({ type: 'REDIRECT_ADD', data }); }
     });
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(Form);
+export default connect(mapStatetoProps, mapDispatchtoProps)(FormInput);

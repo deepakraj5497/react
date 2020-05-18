@@ -1,42 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-    BrowserRouter as Router, Switch, Route, Link, Redirect 
+    BrowserRouter as Router, Switch, Route, Redirect, Link
   } from 'react-router-dom';
+  import {
+    Navbar,
+    Nav,
+    NavItem,
+    NavLink
+  } from 'reactstrap';
 import './App.css';
 import Home from './components/home';
 import StudentTable from './components/studenttable';
-import Form from './components/form';
+import FormInput from './components/form';
 
 
 function App(props) {
   return (
 	<Router>
 		<div className="text-center">
-      <nav className="navbar navbar-expand-sm bg-light justify-content-center">
-			  <ul className="list-unstyled navbar-nav font-weight-bolder">
-          <li className="nav-item">
-					  <Link className="nav-link" to="/react">Home</Link>
-          </li>
-				  <li className="nav-item">
-					  <Link className="nav-link" to="/react/form">Form</Link>
-				  </li>
-				  <li className="nav-item">
-					  <Link className="nav-link" to="/react/studentlist">Student List</Link>
-				  </li>
-			  </ul>
-      </nav>
+      <Navbar color="text-light" className="justify-content-center" light expand="md">
+			  <Nav className="font-weight-bold">
+          <NavItem>
+					  <NavLink><Link to="/react">Home</Link></NavLink>
+          </NavItem>
+				  <NavItem>
+          <NavLink><Link to="/react/form">Form</Link></NavLink>
+				  </NavItem>
+				  <NavItem>
+          <NavLink><Link to="/react/studentlist">Student List</Link></NavLink>
+				  </NavItem>
+			  </Nav>
+      </Navbar>
 			<Switch>
         <Route 
             path="/react/form" 
             render={() => {
-            if (props.post.edit === false) {
-              return <Redirect to="/react/studentlist" />;
-            }
-            if (props.post.addRedirect === true) {
-              return <Redirect to="/react/studentlist" />;
-            }
-            return <Form />;
+              if (props.post.edit === false) {
+                return <Redirect to="/react/studentlist" />;
+              }
+              if (props.post.addRedirect === true) {
+                return <Redirect to="/react/studentlist" />;
+              }
+            return <FormInput />;
           }}
         />
         <Route 
@@ -56,6 +62,7 @@ function App(props) {
 	</Router>
   );
 }
+
 
 const mapStatetoProps = (state) => ({
     post: state

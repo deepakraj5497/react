@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'reactstrap';
+import { Table, Pagination, Form, FormGroup, Input } from 'reactstrap';
 import Tabledata from './tabledata';
 import Tablehead from './table-head';
-import Pagination from './pagination';
+import PaginationValues from './pagination';
+
 
 class StudentTable extends React.Component {
     componentDidMount() {
@@ -17,13 +18,18 @@ class StudentTable extends React.Component {
     dropdown = (event) => {
       const { 
               post: { 
-                    duplicate
+                    post
                   }, pageSize
       } = this.props;
-      pageSize(parseInt(event.target.value, 10), duplicate);
+      pageSize(parseInt(event.target.value, 10), post);
     }
 
     render() {
+      const { 
+            post: {
+                dropdown
+              } 
+            } = this.props;
      return (
         <div className="text-center w-75 mx-auto mt-5">
           <div className="row">
@@ -34,16 +40,18 @@ class StudentTable extends React.Component {
                   <Tabledata />
                </tbody>
               </Table>
-            <ul className="pagination justify-content-center">
-                <Pagination />
-            </ul>
-              <form className="text-center">
-                  <select onChange={this.dropdown}>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                  </select>
-              </form>
+            <Pagination className="text-xs-center">
+                <PaginationValues />
+            </Pagination>
+            <Form className="pageSize mx-auto">
+              <FormGroup>
+                <Input type="select" value={dropdown} onChange={this.dropdown}>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </Input>
+              </FormGroup>
+            </Form>
            </div>
           </div>
         </div>

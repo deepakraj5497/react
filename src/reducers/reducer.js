@@ -44,6 +44,7 @@ pageSize: 5,
 currentPage: 1,
 sortOn: false,
 direction: 'asc',
+oldDirection: '',
 className1: false,
 className2: false,
 nameClass: false,
@@ -66,9 +67,7 @@ edit: '',
 addRedirect: '',
 gender: 'male',
 department: 'A',
-copy() {
-   return [...this.post];
-}
+dropdown: 5
 };
 
 const reducerExample = (state = initialState, action) => {
@@ -142,12 +141,18 @@ const reducerExample = (state = initialState, action) => {
             return {
                 ...state,
                 post: action.newData,
-                pageSize: action.data
+                pageSize: action.data,
+                dropdown: action.data
             };
         case 'SORT_DIRECTION': 
             return {
                 ...state,
                 direction: action.data
+            };
+        case 'OLD_DIRECTION': 
+            return {
+                ...state,
+                oldDirection: action.data
             };
         case 'SORTING': 
             console.log(action.data);

@@ -45,30 +45,37 @@ class Tablehead extends React.Component {
 		this.sorting(k);
     }
 
-    sorting(key) {
+    sorting(keyitem) {
 		const {
             post: {
-                post, direction
-               }, sort, directionValue, sortOn
+                post, key, direction
+               }, sort, directionValue, sortOn, oldDirection
 		   } = this.props;
 		const newArray = [...post];
-		if (direction === 'asc') {
-			if (key === 'name') {
+		let value = direction;
+		if (keyitem !== key) {
+			console.log(keyitem);
+			console.log(key);
+			value = 'asc';
+		}
+		if (value === 'asc') {
+			if (keyitem === 'name') {
 				newArray.sort((a, b) => a.name.localeCompare(b.name));
 			} else {
-				newArray.sort((a, b) => a[key] - b[key]);
+				newArray.sort((a, b) => a[keyitem] - b[keyitem]);
 			}
-			console.log(newArray);
-            sort(newArray, true, false);
-            directionValue('dsc');
+			sort(newArray, true, false);
+			oldDirection(value);
+			directionValue('dsc');
             sortOn(true);
-		} else if (direction === 'dsc') {
-			if (key === 'name') {
+		} else if (value === 'dsc') {
+			if (keyitem === 'name') {
 				newArray.sort((a, b) => b.name.localeCompare(a.name));
 			} else {
-				newArray.sort((a, b) => b[key] - a[key]);
+				newArray.sort((a, b) => b[keyitem] - a[keyitem]);
 			}
-            sort(newArray, false, true);
+			sort(newArray, false, true);
+			oldDirection(value);
             directionValue('asc');
 		} 
 	}
@@ -215,7 +222,8 @@ const mapDispatchtoProps = (dispatch) => ({
         allclass: () => { dispatch({ type: 'ALL_CLASS' }); },
         keyItem: (data) => { dispatch({ type: 'KEY', data }); },
 		sortOn: (data) => { dispatch({ type: 'SORT_ON', data }); },
-		duplicateItem: (data) => { dispatch({ type: 'DUPLICATE_POST', data }); }
+		duplicateItem: (data) => { dispatch({ type: 'DUPLICATE_POST', data }); },
+		oldDirection: (data) => { dispatch({ type: 'OLD_DIRECTION', data }); }
     });
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(Tablehead);
+export default connect(mapStatetoProps, mapDispatchtoProps, null, { forwardRef: true })(Tablehead);

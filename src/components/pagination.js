@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { PaginationItem, PaginationLink } from 'reactstrap';
 
-class Pagination extends React.Component {
+class PaginationValues extends React.Component {
     current = (i) => {
         const {
                 currentPage
@@ -17,6 +18,7 @@ class Pagination extends React.Component {
                 post, pageSize, currentPage
                } 
            } = this.props;
+        console.log(post);
         pagecount = Math.ceil(post.length / pageSize);
 		const number = [];
 		for (let i = 1; i <= pagecount; i += 1) {
@@ -25,11 +27,11 @@ class Pagination extends React.Component {
 			} else if (currentPage !== i) {
 				activeclass = 'page-item';
 			}
-            number.push(<li className={activeclass} key={i}>
-                            <button type="button" id={i} className="page-link" onClick={(e) => (this.current(e.target.id))}> 
+            number.push(<PaginationItem className={activeclass} key={i}>
+                            <PaginationLink id={i} className="page-link" onClick={(e) => (this.current(e.target.id))}> 
                                 {i}
-                            </button>
-                        </li>);
+                            </PaginationLink>
+                        </PaginationItem>);
 		}
 		return number;
 	}
@@ -45,4 +47,4 @@ const mapDispatchtoProps = (dispatch) => ({
     
 });
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(Pagination);
+export default connect(mapStatetoProps, mapDispatchtoProps)(PaginationValues);
