@@ -1,34 +1,33 @@
-import Photo from '../assets/pic.jpg';
 
 const initialState = {
  post: [
     {
- name: 'Deepak', english: 98, tamil: 95, maths: 99, science: 100, social: 100, id: 1, img: Photo, gender: 'male', section: 'A' 
+ name: 'Deepak', english: 98, tamil: 95, maths: 99, science: 100, social: 100, id: 1, img: require('../assets/pic.jpg'), gender: 'male', section: 'A' 
 }, {
- name: 'Raji', english: 90, tamil: 95, maths: 78, science: 93, social: 100, id: 2, img: Photo, gender: 'female', section: 'B' 
+ name: 'Raji', english: 90, tamil: 95, maths: 78, science: 93, social: 100, id: 2, img: require('../assets/pic.jpg'), gender: 'female', section: 'B' 
 },
     {
- name: 'Raj', english: 90, tamil: 65, maths: 65, science: 90, social: 80, id: 3, img: Photo, gender: 'male', section: 'A' 
+ name: 'Raj', english: 90, tamil: 65, maths: 65, science: 90, social: 80, id: 3, img: require('../assets/pic.jpg'), gender: 'male', section: 'A' 
 }, {
- name: 'Geetha', english: 87, tamil: 81, maths: 85, science: 90, social: 86, id: 4, img: Photo, gender: 'female', section: 'C' 
+ name: 'Geetha', english: 87, tamil: 81, maths: 85, science: 90, social: 86, id: 4, img: require('../assets/pic.jpg'), gender: 'female', section: 'C' 
 },
     {
- name: 'Prasath', english: 87, tamil: 88, maths: 85, science: 75, social: 86, id: 5, img: Photo, gender: 'male', section: 'A' 
+ name: 'Prasath', english: 87, tamil: 88, maths: 85, science: 75, social: 86, id: 5, img: require('../assets/pic.jpg'), gender: 'male', section: 'A' 
 }, {
- name: 'Bharathi', english: 72, tamil: 85, maths: 85, science: 90, social: 80, id: 6, img: Photo, gender: 'female', section: 'C' 
+ name: 'Bharathi', english: 72, tamil: 85, maths: 85, science: 90, social: 80, id: 6, img: require('../assets/pic.jpg'), gender: 'female', section: 'C' 
 },
 	{
- name: 'Ajith', english: 68, tamil: 81, maths: 80, science: 60, social: 75, id: 7, img: Photo, gender: 'male', section: 'B' 
+ name: 'Ajith', english: 68, tamil: 81, maths: 80, science: 60, social: 75, id: 7, img: require('../assets/pic.jpg'), gender: 'male', section: 'B' 
 }, {
- name: 'Gayathri', english: 80, tamil: 74, maths: 66, science: 95, social: 55, id: 8, img: Photo, gender: 'female', section: 'B' 
+ name: 'Gayathri', english: 80, tamil: 74, maths: 66, science: 95, social: 55, id: 8, img: require('../assets/pic.jpg'), gender: 'female', section: 'B' 
 },
 	{
- name: 'Kishore', english: 87, tamil: 51, maths: 45, science: 88, social: 86, id: 9, img: Photo, gender: 'male', section: 'C' 
+ name: 'Kishore', english: 87, tamil: 51, maths: 45, science: 88, social: 86, id: 9, img: require('../assets/pic.jpg'), gender: 'male', section: 'C' 
 }, {
- name: 'Ajay', english: 87, tamil: 51, maths: 85, science: 60, social: 86, id: 10, img: Photo, gender: 'male', section: 'C' 
+ name: 'Ajay', english: 87, tamil: 51, maths: 85, science: 60, social: 86, id: 10, img: require('../assets/pic.jpg'), gender: 'male', section: 'C' 
 },
 	{
- name: 'Sujatha', english: 87, tamil: 51, maths: 95, science: 90, social: 86, id: 11, img: Photo, gender: 'female', section: 'A' 
+ name: 'Sujatha', english: 87, tamil: 51, maths: 95, science: 90, social: 86, id: 11, img: require('../assets/pic.jpg'), gender: 'female', section: 'A' 
 }
     ],
 add: true,
@@ -40,6 +39,8 @@ science: '',
 social: '',
 id: '',
 index: '',
+img: 'https://via.placeholder.com/150',
+newimg: '',
 pageSize: 5,
 currentPage: 1,
 sortOn: false,
@@ -95,10 +96,11 @@ const reducerExample = (state = initialState, action) => {
                 maths: '',
                 science: '',
                 social: '',
-                gender: 'male'
+                gender: 'male',
+                img: 'https://via.placeholder.com/150'
             };
         case 'UPDATE_POST':
-            console.log(action.data.i);
+            console.log(action.data.img);
             return {
                 ...state,
                 name: action.data.name,
@@ -111,14 +113,14 @@ const reducerExample = (state = initialState, action) => {
                 gender: action.data.gender,
                 section: action.data.section,
                 add: false,
-                index: action.data.i
+                index: action.data.i,
+                img: 'https://via.placeholder.com/150'
             };
         case 'UPDATE_DATA': {
-                console.log(action.data);
+                console.log(action.data.img);
                 const newArray = state.post.filter(
-                    () => state.post.splice(state.index , 1, action.data)
+                    () => state.post.splice(state.index, 1, action.data)
                     );
-                console.log(newArray);
              return {
                 ...state,
                 post: newArray,
@@ -128,8 +130,8 @@ const reducerExample = (state = initialState, action) => {
                 tamil: '',
                 maths: '',
                 science: '',
-              
-                social: ''
+                social: '',
+                img: ''
             };
         }
         case 'CURRENT_PAGE': 
@@ -166,6 +168,12 @@ const reducerExample = (state = initialState, action) => {
             return {
                 ...state,
                 [action.data]: true
+            };
+        case 'IMG_UPLOAD': 
+            let image = require(`../assets/${action.data.name}`);
+            return {
+                ...state,
+                img: image
             };
         case 'ALL_CLASS': 
             return {

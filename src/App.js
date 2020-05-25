@@ -6,8 +6,7 @@ import {
   import {
     Navbar,
     Nav,
-    NavItem,
-    NavLink
+    NavItem
   } from 'reactstrap';
 import './App.css';
 import Home from './components/home';
@@ -22,13 +21,13 @@ function App(props) {
       <Navbar color="text-light" className="justify-content-center" light expand="md">
 			  <Nav className="font-weight-bold">
           <NavItem>
-					  <NavLink><Link to="/react">Home</Link></NavLink>
+					  <Link className="nav-link" to="/react">Home</Link>
           </NavItem>
 				  <NavItem>
-          <NavLink><Link to="/react/form">Form</Link></NavLink>
+            <Link className="nav-link" to="/react/form">Form</Link>
 				  </NavItem>
 				  <NavItem>
-          <NavLink><Link to="/react/studentlist">Student List</Link></NavLink>
+            <Link className="nav-link" to="/react/studentlist">Student List</Link>
 				  </NavItem>
 			  </Nav>
       </Navbar>

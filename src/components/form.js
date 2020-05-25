@@ -45,10 +45,18 @@ class FormInput extends React.Component {
 		inputChange(name, value);
 	}
 
+	handleImage = (event) => {
+		const { 
+			imgupload
+		} = this.props;
+		console.log(event.target.files[0]);
+		imgupload(event.target.files[0]);
+	}
+
 	handleUpdate() {
 		const { 
 				post: { 
-					name, english, tamil, maths, science, social, id, gender, section
+					name, english, tamil, maths, science, social, id, gender, section, img
 					}, errorclass, noerror, updateData, redirect
 			} = this.props;
 		const data = {
@@ -60,7 +68,8 @@ class FormInput extends React.Component {
 				social: parseInt(social, 10),
 				id,
 				gender,
-				section 
+				section,
+				img 
 		};
 		if (name === '' || english === '' || tamil === '' || maths === '' || science === '' || social === '') {
 			if (name === '') {
@@ -87,7 +96,7 @@ class FormInput extends React.Component {
 	handleClick() {
 		const { 
 			post: { 
-				post, name, english, tamil, maths, science, social, gender, section 
+				post, name, english, tamil, maths, science, social, gender, section, img 
 				}, errorclass, noerror, addData, redirectadd
 			} = this.props;
 		const id = post.length + 1;
@@ -100,7 +109,8 @@ class FormInput extends React.Component {
 						social: parseInt(social, 10),
 						id, 
 						gender,
-						section 
+						section,
+						img 
 						};
 			if (name === '' || english === '' || tamil === '' || maths === '' || science === '' || social === '') {
 			if (name === '') {
@@ -123,9 +133,8 @@ class FormInput extends React.Component {
 		console.log(newData);
 		console.log(data);
 		addData(data, newData);
-		window.alert("Added successfully");
+		window.alert('Added successfully');
 		redirectadd(true);
-		console.log(this.refs.ref);
 	}
 
 	render() {
@@ -133,9 +142,10 @@ class FormInput extends React.Component {
 		const { 
 			post: { 
 					add, name, nameCheck, english, englishCheck, tamil, tamilCheck,
-					maths, mathsCheck, social, socialCheck, science, scienceCheck, gender, section
+					maths, mathsCheck, social, socialCheck, science, scienceCheck, gender, section, img
 				  }
 			} = this.props;
+		console.log(img);
 		if (add === true) {
 			button = <button type="button" className="btn btn-info" onClick={this.handleClick.bind(this)}>Add Member</button>;
 		} else if (add === false) {
@@ -229,10 +239,20 @@ class FormInput extends React.Component {
 				<br />
 				</FormGroup>
 				<FormGroup>
-					<Input type="file" className="form-control-file border" name="file" onChange={this.handleImage} />
+					<Input 
+					style={{ display: 'none' }} 
+					type="file" 
+					className="form-control-file border" 
+					id="file"
+					onChange={this.handleImage}
+					/>
 				    <FormText color="muted">
 						Choose a student piture
         </FormText>
+					<img src={img} alt="student pic" width="150px" height="150px" />
+					<button type="button" onClick={() => document.querySelector('#file').click()}>
+						<i className="fa fa-upload" style={{ marginLeft: '5px' }} />
+					</button>
 				<br />
 				</FormGroup>
 				<FormGroup>
@@ -275,7 +295,8 @@ const mapDispatchtoProps = (dispatch) => ({
 		success: (data) => { dispatch({ type: 'SUCCESS', data }); },
 		noerror: (data) => { dispatch({ type: 'NOERROR', data }); },
 		redirect: (data) => { dispatch({ type: 'REDIRECT', data }); },
-		redirectadd: (data) => { dispatch({ type: 'REDIRECT_ADD', data }); }
+		redirectadd: (data) => { dispatch({ type: 'REDIRECT_ADD', data }); },
+		imgupload: (data) => { dispatch({ type: 'IMG_UPLOAD', data }); }
     });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(FormInput);

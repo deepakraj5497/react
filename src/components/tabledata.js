@@ -13,11 +13,11 @@ class Tabledata extends React.Component {
 		redirect(true);
 		let page = (currentPage - 1) * 5;
 		const { 
-			name, english, tamil, maths, science, social, id, gender, section 
+			name, english, tamil, maths, science, social, id, gender, section, img 
 		} = post[index + page];
 		const i = index + page;
 		const data = { 
-			name, english, tamil, maths, science, social, id, i, gender, section 
+			name, english, tamil, maths, science, social, id, i, gender, section, img 
 		};
 		getItem(data);
 	}
@@ -85,8 +85,8 @@ class Tabledata extends React.Component {
  			name, english, tamil, maths, science, social, img, gender, section, id
 			} = n;
 		const total = english + tamil + maths + science + social;
+		console.log(img);
 		return (
-
 			<tr key={id} className="allRows">
            		<td>{name}</td>
           		<td>{english}</td>
