@@ -114,13 +114,13 @@ const reducerExample = (state = initialState, action) => {
                 section: action.data.section,
                 add: false,
                 index: action.data.i,
-                img: 'https://via.placeholder.com/150'
+                img: action.data.img
             };
         case 'UPDATE_DATA': {
                 console.log(action.data.img);
                 const newArray = state.post.filter(
                     () => state.post.splice(state.index, 1, action.data)
-                 );
+                    );
              return {
                 ...state,
                 post: newArray,
@@ -131,7 +131,7 @@ const reducerExample = (state = initialState, action) => {
                 maths: '',
                 science: '',
                 social: '',
-                img: ''
+                img: 'https://via.placeholder.com/150'
             };
         }
         case 'CURRENT_PAGE': 
