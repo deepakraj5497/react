@@ -120,7 +120,7 @@ const reducerExample = (state = initialState, action) => {
                 console.log(action.data.img);
                 const newArray = state.post.filter(
                     () => state.post.splice(state.index, 1, action.data)
-                    );
+                 );
              return {
                 ...state,
                 post: newArray,
