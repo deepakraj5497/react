@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
 	 Form, FormGroup, Label, Input, FormText 
 		} from 'reactstrap';
+import axios from 'axios';
 
 class FormInput extends React.Component {
 	componentDidMount() {
@@ -50,7 +51,12 @@ class FormInput extends React.Component {
 			imgupload
 		} = this.props;
 		console.log(event.target.files[0]);
-		imgupload(event.target.files[0]);
+		const reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		reader.onload = (e) => {
+			console.log(e.target.result);
+			imgupload(e.target.result);
+		};
 	}
 
 	handleUpdate() {
@@ -59,6 +65,15 @@ class FormInput extends React.Component {
 					name, english, tamil, maths, science, social, id, gender, section, img
 					}, errorclass, noerror, updateData, redirect
 			} = this.props;
+			console.log(img);
+		axios.post('http://localhost:3500/upload_image', {
+				img
+			  })
+			  .then((response) => {
+				console.log(response);
+			  }, (error) => {
+				  console.log(error);
+		});
 		const data = {
 				name,
 				english: parseInt(english, 10),
@@ -96,10 +111,19 @@ class FormInput extends React.Component {
 	handleClick() {
 		const { 
 			post: { 
-				post, name, english, tamil, maths, science, social, gender, section, img 
+				post, name, english, tamil, maths, science, social, gender, department, img 
 				}, errorclass, noerror, addData, redirectadd
 			} = this.props;
 		const id = post.length + 1;
+		axios.post('http://localhost:3500/upload_image', {
+            img
+          })
+          .then((response) => {
+            console.log(response);
+          }, (error) => {
+              console.log(error);
+		  });
+		  
 		const newData = {
  						name,
 						english: parseInt(english, 10),
@@ -109,7 +133,7 @@ class FormInput extends React.Component {
 						social: parseInt(social, 10),
 						id, 
 						gender,
-						section,
+						department,
 						img 
 						};
 			if (name === '' || english === '' || tamil === '' || maths === '' || science === '' || social === '') {

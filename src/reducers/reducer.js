@@ -39,7 +39,7 @@ science: '',
 social: '',
 id: '',
 index: '',
-img: 'https://via.placeholder.com/150',
+img: 'http://localhost:3000/src/assets/1590504544489.jpg',
 newimg: '',
 pageSize: 5,
 currentPage: 1,
@@ -170,10 +170,9 @@ const reducerExample = (state = initialState, action) => {
                 [action.data]: true
             };
         case 'IMG_UPLOAD': 
-            let image = require(`../assets/${action.data.name}`);
             return {
                 ...state,
-                img: image
+                img: action.data
             };
         case 'ALL_CLASS': 
             return {
